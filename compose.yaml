@@ -1,0 +1,15 @@
+services:
+  workflow:
+    build: .
+    env_file: .env
+    ports:
+      - "127.0.0.1:8012:8012"
+    volumes:
+      - workflow-data:/app/data
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+volumes:
+  workflow-data:

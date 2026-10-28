@@ -1,0 +1,58 @@
+{
+  "scenario": "local synthetic HTTP end-to-end",
+  "python": "3.13.18",
+  "planner_mode": "fixture",
+  "live_azure_called": false,
+  "crm": "local_mock",
+  "run_id": "026c697d-8adc-4557-94f4-6b14b81a28be",
+  "created_status": 201,
+  "replay_created_new_run": false,
+  "before_approval_status": "waiting_approval",
+  "case_before_approval": null,
+  "self_approval_http_status": 403,
+  "reviewer_decision_status": 200,
+  "final_status": "completed",
+  "case_count_after_repeated_delivery": 1,
+  "metrics": {
+    "runs_by_status": {
+      "completed": 1
+    },
+    "retry_events": 0,
+    "mean_completed_seconds": 0.04634213447570801,
+    "measurement_note": "Wall time includes human waiting; synthetic local runs only"
+  },
+  "event_sequence": [
+    {
+      "sequence": 1,
+      "kind": "run_created"
+    },
+    {
+      "sequence": 2,
+      "kind": "plan_validated"
+    },
+    {
+      "sequence": 3,
+      "kind": "tool_completed"
+    },
+    {
+      "sequence": 4,
+      "kind": "tool_completed"
+    },
+    {
+      "sequence": 5,
+      "kind": "tool_completed"
+    },
+    {
+      "sequence": 6,
+      "kind": "approval_requested"
+    },
+    {
+      "sequence": 7,
+      "kind": "approved"
+    },
+    {
+      "sequence": 8,
+      "kind": "case_created"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "phase": "proposal",
+  "run_id": "375a5bb9-203d-4a80-a45a-f0acefd5d699",
+  "status": "waiting_approval",
+  "mode": "fixture",
+  "case_created": false
+}
+{
+  "phase": "after_approval",
+  "status": "completed",
+  "crm_case_id": "CASE-375a5bb9-203d-4a80-a45a-f0acefd5d699",
+  "metrics": {
+    "runs_by_status": {
+      "completed": 1
+    },
+    "retry_events": 0,
+    "mean_completed_seconds": 0.0322270393371582,
+    "measurement_note": "Wall time includes human waiting; synthetic local runs only"
+  }
+}

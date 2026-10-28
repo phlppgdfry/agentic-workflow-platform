@@ -1,0 +1,3 @@
+Default image CMD started with isolated network and synthetic configuration.
+GET /health = 200
+{"status":"ok","planner_mode":"fixture","crm":"local_mock"}
