@@ -50,8 +50,17 @@ class PrepareCall(StrictModel):
 ToolCall = Annotated[LookupCall | PolicyCall | PrepareCall, Field(discriminator="tool")]
 
 
+class ModelUsage(StrictModel):
+    provider: str = Field(min_length=1, max_length=30)
+    model: str = Field(min_length=1, max_length=120)
+    input_tokens: int = Field(ge=0, le=1000000)
+    output_tokens: int = Field(ge=0, le=1000000)
+    latency_ms: float = Field(ge=0, allow_inf_nan=False)
+
+
 class Plan(StrictModel):
     steps: list[ToolCall] = Field(min_length=3, max_length=3)
+    usage: ModelUsage | None = None
 
     def check_scope(self, customer_id: str) -> None:
         if [s.tool for s in self.steps] != ["lookup_customer", "check_policy", "prepare_case"]:

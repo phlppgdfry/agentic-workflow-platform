@@ -97,4 +97,7 @@ def configured_planner():
         return FixturePlanner()
     if mode == "azure":
         return AzurePlanner.from_env()
-    raise ValueError("PLANNER_MODE must be fixture or azure; no fallback is performed")
+    if mode == "ollama":
+        from .ollama import OllamaPlanner
+        return OllamaPlanner.from_env()
+    raise ValueError("PLANNER_MODE must be fixture, azure or ollama; no fallback is performed")
