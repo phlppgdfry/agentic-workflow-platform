@@ -2,6 +2,14 @@
 
 A durable accounting-intake workflow that turns untrusted requests into **reviewable tool proposals**, waits for an independent approver, then writes a case into a local mock CRM. Built for an AI consultant portfolio: it demonstrates where model freedom ends and application controls begin.
 
+## Portfolio update — 29 October 2026
+
+A workflow inspector at `/console`, persisted cancellation, server-scoped invoice/policy HTTP tools and bounded request security controls. [Genuine local Qwen tool calling](docs/local-inference.md) was also executed; model usage and planning latency are recorded separately from fixture runs.
+
+[Integration and limitations](docs/portfolio-integration.md) · [Current evidence matrix](evidence/FEATURES.md)
+
+![Actual implemented workspace](evidence/screenshots/desktop.png)
+
 **Status:** functional local reference implementation with automated tests. It has not been deployed or validated against a live Azure resource. It is not an enterprise SaaS product, a real ERP connector, or evidence of professional production experience.
 
 ## What runs today
@@ -9,14 +17,14 @@ A durable accounting-intake workflow that turns untrusted requests into **review
 - FastAPI REST API and generated OpenAPI/Swagger UI.
 - SQLite checkpoints, atomic leases and fencing against stale workers.
 - Three explicit specialist tools: customer lookup, policy lookup and case preparation.
-- Deterministic fixture planner, plus an optional Azure OpenAI v1 tool-calling planner.
+- Deterministic fixture planner, plus optional Azure OpenAI v1 and genuine local Ollama tool-calling planners.
 - Strict tool schemas, customer-scope checks, a three-step budget and an immutable proposal.
 - Tenant isolation and server-configured API-key roles. Requesters cannot approve their own work.
 - Persisted exponential backoff, bounded retries and terminal failures.
 - Approval-gated outbox and idempotent delivery to **local mock CRM tables**.
 - Structured audit events and measured local workflow metrics.
 
-The specialist steps are functions, not separate autonomous LLM agents. Fixture mode contains no model call. Azure mode uses one bounded model planning call; tools and writes remain controlled by the deterministic engine.
+The specialist steps are functions, not separate autonomous LLM agents. Fixture mode contains no model call. Azure and opt-in local Ollama modes use one bounded model planning call; tools and writes remain controlled by the deterministic engine.
 
 ## Run in five minutes
 

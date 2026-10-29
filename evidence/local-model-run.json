@@ -1,0 +1,262 @@
+{
+  "execution": "genuine local model tool calling; synthetic records and mock CRM",
+  "model": "qwen3:8b",
+  "proposal_state": {
+    "id": "db25079f-b61e-4263-9bca-8af577093dde",
+    "tenant": "demo",
+    "created_by": "synthetic-requester",
+    "mode": "ollama",
+    "status": "waiting_approval",
+    "cursor": 3,
+    "attempts": 0,
+    "next_attempt_at": 0.0,
+    "last_error": null,
+    "created_at": 1793259980.3127198,
+    "updated_at": 1793259989.6701372,
+    "request": {
+      "customer_id": "C-001",
+      "message": "Prepare a review of a synthetic office invoice."
+    },
+    "plan": {
+      "steps": [
+        {
+          "tool": "lookup_customer",
+          "arguments": {
+            "customer_id": "C-001"
+          }
+        },
+        {
+          "tool": "check_policy",
+          "arguments": {
+            "topic": "accounting_intake"
+          }
+        },
+        {
+          "tool": "prepare_case",
+          "arguments": {
+            "customer_id": "C-001",
+            "title": "Review of Synthetic Office Invoice",
+            "summary": "A review is being prepared for a synthetic office invoice for customer C-001.",
+            "priority": "normal"
+          }
+        }
+      ],
+      "usage": {
+        "provider": "ollama-local",
+        "model": "qwen3:8b",
+        "input_tokens": 366,
+        "output_tokens": 111,
+        "latency_ms": 9341.584
+      }
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "lookup_customer",
+        "result": {
+          "active": true,
+          "customer_id": "C-001",
+          "name": "Synthetic Example BV"
+        }
+      },
+      {
+        "step": 1,
+        "tool": "check_policy",
+        "result": {
+          "allowed_action": "create_mock_crm_case",
+          "human_approval_required": true,
+          "policy_id": "accounting-intake-v1",
+          "sensitive_data": "synthetic_only"
+        }
+      },
+      {
+        "step": 2,
+        "tool": "prepare_case",
+        "result": {
+          "policy_id": "accounting-intake-v1",
+          "proposal": {
+            "customer_id": "C-001",
+            "priority": "normal",
+            "summary": "A review is being prepared for a synthetic office invoice for customer C-001.",
+            "title": "Review of Synthetic Office Invoice"
+          }
+        }
+      }
+    ],
+    "decision": null,
+    "crm_case_id": null
+  },
+  "passed": true,
+  "final_state": {
+    "id": "db25079f-b61e-4263-9bca-8af577093dde",
+    "tenant": "demo",
+    "created_by": "synthetic-requester",
+    "mode": "ollama",
+    "status": "completed",
+    "cursor": 3,
+    "attempts": 0,
+    "next_attempt_at": 0.0,
+    "last_error": null,
+    "created_at": 1793259980.3127198,
+    "updated_at": 1793259989.674419,
+    "request": {
+      "customer_id": "C-001",
+      "message": "Prepare a review of a synthetic office invoice."
+    },
+    "plan": {
+      "steps": [
+        {
+          "tool": "lookup_customer",
+          "arguments": {
+            "customer_id": "C-001"
+          }
+        },
+        {
+          "tool": "check_policy",
+          "arguments": {
+            "topic": "accounting_intake"
+          }
+        },
+        {
+          "tool": "prepare_case",
+          "arguments": {
+            "customer_id": "C-001",
+            "title": "Review of Synthetic Office Invoice",
+            "summary": "A review is being prepared for a synthetic office invoice for customer C-001.",
+            "priority": "normal"
+          }
+        }
+      ],
+      "usage": {
+        "provider": "ollama-local",
+        "model": "qwen3:8b",
+        "input_tokens": 366,
+        "output_tokens": 111,
+        "latency_ms": 9341.584
+      }
+    },
+    "tool_results": [
+      {
+        "step": 0,
+        "tool": "lookup_customer",
+        "result": {
+          "active": true,
+          "customer_id": "C-001",
+          "name": "Synthetic Example BV"
+        }
+      },
+      {
+        "step": 1,
+        "tool": "check_policy",
+        "result": {
+          "allowed_action": "create_mock_crm_case",
+          "human_approval_required": true,
+          "policy_id": "accounting-intake-v1",
+          "sensitive_data": "synthetic_only"
+        }
+      },
+      {
+        "step": 2,
+        "tool": "prepare_case",
+        "result": {
+          "policy_id": "accounting-intake-v1",
+          "proposal": {
+            "customer_id": "C-001",
+            "priority": "normal",
+            "summary": "A review is being prepared for a synthetic office invoice for customer C-001.",
+            "title": "Review of Synthetic Office Invoice"
+          }
+        }
+      }
+    ],
+    "decision": {
+      "actor": "synthetic-reviewer",
+      "approve": 1,
+      "reason": "Scripted independent reviewer checked the synthetic proposal",
+      "at": 1793259989.671825
+    },
+    "crm_case_id": "CASE-db25079f-b61e-4263-9bca-8af577093dde"
+  },
+  "events": [
+    {
+      "sequence": 1,
+      "at": 1793259980.312748,
+      "actor": "synthetic-requester",
+      "kind": "run_created",
+      "detail_json": "{\"planner_mode\":\"ollama\"}",
+      "detail": {
+        "planner_mode": "ollama"
+      }
+    },
+    {
+      "sequence": 2,
+      "at": 1793259989.659473,
+      "actor": "planner",
+      "kind": "plan_validated",
+      "detail_json": "{\"mode\":\"ollama\",\"steps\":3}",
+      "detail": {
+        "mode": "ollama",
+        "steps": 3
+      }
+    },
+    {
+      "sequence": 3,
+      "at": 1793259989.6630259,
+      "actor": "lookup_customer",
+      "kind": "tool_completed",
+      "detail_json": "{\"step\":0,\"tool\":\"lookup_customer\"}",
+      "detail": {
+        "step": 0,
+        "tool": "lookup_customer"
+      }
+    },
+    {
+      "sequence": 4,
+      "at": 1793259989.666111,
+      "actor": "check_policy",
+      "kind": "tool_completed",
+      "detail_json": "{\"step\":1,\"tool\":\"check_policy\"}",
+      "detail": {
+        "step": 1,
+        "tool": "check_policy"
+      }
+    },
+    {
+      "sequence": 5,
+      "at": 1793259989.670159,
+      "actor": "prepare_case",
+      "kind": "tool_completed",
+      "detail_json": "{\"step\":2,\"tool\":\"prepare_case\"}",
+      "detail": {
+        "step": 2,
+        "tool": "prepare_case"
+      }
+    },
+    {
+      "sequence": 6,
+      "at": 1793259989.670178,
+      "actor": "engine",
+      "kind": "approval_requested",
+      "detail_json": "{}",
+      "detail": {}
+    },
+    {
+      "sequence": 7,
+      "at": 1793259989.671938,
+      "actor": "synthetic-reviewer",
+      "kind": "approved",
+      "detail_json": "{}",
+      "detail": {}
+    },
+    {
+      "sequence": 8,
+      "at": 1793259989.674447,
+      "actor": "mock_crm",
+      "kind": "case_created",
+      "detail_json": "{\"case_id\":\"CASE-db25079f-b61e-4263-9bca-8af577093dde\"}",
+      "detail": {
+        "case_id": "CASE-db25079f-b61e-4263-9bca-8af577093dde"
+      }
+    }
+  ]
+}
