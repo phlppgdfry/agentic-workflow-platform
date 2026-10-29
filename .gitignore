@@ -12,3 +12,7 @@ data/
 *.db-wal
 .coverage
 htmlcov/
+
+# Local package build outputs
+build/
+dist/

@@ -184,6 +184,20 @@ class Store:
             return [{**dict(r), "detail": json.loads(r["detail_json"])} for r in db.execute(
                 "SELECT sequence,at,actor,kind,detail_json FROM events WHERE run_id=? ORDER BY sequence", (run_id,))]
 
+    def cancel(self, run_id, principal, reason):
+        """Cancellation and lease invalidation share the delivery transaction boundary."""
+        with self.transaction() as db:
+            row = self.row(db, run_id, principal.tenant)
+            if "operator" not in principal.roles:
+                raise Forbidden("operator_required")
+            if row["status"] in ("completed", "rejected", "failed"):
+                raise Conflict("terminal_run_cannot_be_cancelled")
+            if row["status"] != "cancelled":
+                db.execute("UPDATE outbox SET status='cancelled' WHERE run_id=? AND status='pending'", (run_id,))
+                self.release(db, run_id, status="cancelled", next_attempt_at=0)
+                self.event(db, run_id, principal.subject, "run_cancelled", {"reason": reason})
+        return self.get(run_id, principal.tenant)
+
     def metrics(self, tenant):
         with self.transaction() as db:
             counts = {r["status"]: r["n"] for r in db.execute(

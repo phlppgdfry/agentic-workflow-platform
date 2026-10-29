@@ -1,24 +1,33 @@
+from .security import install_security
 import hmac
 import json
 import os
 from typing import Annotated
 from fastapi import Depends, FastAPI, Header, HTTPException
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, HTMLResponse
+from importlib.resources import files
 from fastapi.security import APIKeyHeader
 from .engine import Engine
 from .models import Decision, Principal, RunRequest
 from .planners import configured_planner
 from .store import Conflict, Forbidden, Missing, Store
+from .integrations import configured_tools
+from .models import StrictModel
+from pydantic import Field
 
 
-def create_app(store=None, planner=None, principals=None):
+class Cancellation(StrictModel):
+    reason: str = Field(min_length=5, max_length=500)
+
+
+def create_app(store=None, planner=None, principals=None, tools=None):
     # No built-in API credentials. Missing server configuration fails at startup.
     mapping = principals if principals is not None else json.loads(os.environ["WORKFLOW_PRINCIPALS_JSON"])
     if not mapping or any(len(k) < 16 for k in mapping):
         raise ValueError("Configure nonempty API keys of at least 16 characters")
     credentials = {key: Principal.model_validate(value) for key, value in mapping.items()}
     db = store or Store(os.getenv("WORKFLOW_DB", "data/workflow.db"))
-    engine = Engine(db, planner or configured_planner())
+    engine = Engine(db, planner or configured_planner(), tools=tools or configured_tools())
     app = FastAPI(title="Agentic Workflow Platform", version="0.1.0",
                   description="Approval-gated reference implementation. Fixture mode is deterministic; CRM is local mock storage.")
     app.state.store, app.state.engine = db, engine
@@ -53,6 +62,12 @@ def create_app(store=None, planner=None, principals=None):
     def health():
         return {"status": "ok", "planner_mode": engine.planner.mode, "crm": "local_mock"}
 
+    @app.get("/console", response_class=HTMLResponse, include_in_schema=False)
+    def console():
+        return HTMLResponse(files('workflow_platform').joinpath('console.html').read_text(),
+                            headers={'Cache-Control': 'no-store', 'X-Frame-Options': 'DENY',
+                                     'X-Content-Type-Options': 'nosniff'})
+
     @app.post("/runs", status_code=201, tags=["workflows"])
     def create(request: RunRequest, principal: Auth,
                idempotency_key: Annotated[str, Header(min_length=8, max_length=100)]):
@@ -86,9 +101,14 @@ def create_app(store=None, planner=None, principals=None):
     def events(run_id: str, principal: Auth):
         return db.events(run_id, principal.tenant)
 
+    @app.post("/runs/{run_id}/cancel", tags=["workers"])
+    def cancel(run_id: str, request: Cancellation, principal: Auth):
+        return db.cancel(run_id, principal, request.reason)
+
     @app.get("/metrics", tags=["operations"])
     def metrics(principal: Auth):
         require(principal, "operator", "auditor")
         return db.metrics(principal.tenant)
 
+    install_security(app, max_bytes=262144)
     return app
