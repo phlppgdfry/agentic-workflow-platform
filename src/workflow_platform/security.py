@@ -1,5 +1,7 @@
 """Small ASGI boundary: bounded bodies, safe validation errors, correlated metadata logs."""
 import json
+import asyncio
+import threading
 import logging
 import time
 from uuid import uuid4
@@ -8,8 +10,12 @@ from fastapi.responses import JSONResponse
 
 
 class RequestBoundary:
-    def __init__(self, app, max_bytes=262144):
+    def __init__(self, app, max_bytes=262144, max_active=32, body_timeout=30):
+        if max_active < 1 or body_timeout <= 0:
+            raise ValueError("Positive admission and body deadline limits required")
         self.app, self.max_bytes = app, max_bytes
+        self.capacity = threading.BoundedSemaphore(max_active)
+        self.body_timeout = body_timeout
 
     async def __call__(self, scope, receive, send):
         if scope['type'] != 'http':
@@ -24,17 +30,27 @@ class RequestBoundary:
                                       (b'x-request-id', request_id.encode()), (b'cache-control', b'no-store')]
             await send(message)
 
+        admitted = self.capacity.acquire(blocking=False)
         try:
+            if not admitted:
+                return await JSONResponse({'detail': 'Service concurrency limit reached'}, status_code=429,
+                                          headers={'Retry-After': '1'})(scope, receive, tracked_send)
             if scope['method'] in {'POST', 'PUT', 'PATCH'}:
                 limit = 5 * 1024 * 1024 if scope.get('path') == '/documents/extract' else self.max_bytes
                 body = bytearray()
+                deadline = time.monotonic() + self.body_timeout
                 while True:
-                    message = await receive()
+                    try:
+                        remaining = max(0, deadline - time.monotonic())
+                        message = await asyncio.wait_for(receive(), timeout=remaining)
+                    except asyncio.TimeoutError:
+                        return await JSONResponse({'detail': 'Request body deadline exceeded'}, status_code=408)(scope, receive, tracked_send)
                     if message['type'] == 'http.disconnect':
                         return
-                    body.extend(message.get('body', b''))
-                    if len(body) > limit:
+                    part = message.get('body', b'')
+                    if len(body) + len(part) > limit:
                         return await JSONResponse({'detail': 'Request body exceeds configured limit'}, status_code=413)(scope, receive, tracked_send)
+                    body.extend(part)
                     if not message.get('more_body', False):
                         break
                 original_receive = receive
@@ -51,6 +67,8 @@ class RequestBoundary:
             else:
                 await self.app(scope, receive, tracked_send)
         finally:
+            if admitted:
+                self.capacity.release()
             route = scope.get('route')
             logging.getLogger('uvicorn.error').info(json.dumps({
                 'event': 'http_request', 'request_id': request_id, 'route': getattr(route, 'path', 'unmatched'),
