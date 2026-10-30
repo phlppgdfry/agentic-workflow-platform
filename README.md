@@ -1,6 +1,6 @@
 # Agentic Workflow Platform
 
-[Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local checks are recorded; hosted CI and cloud runtime remain separately unverified.
+[Portfolio case study](https://github.com/phlppgdfry/ai-transformation-playbook/tree/portfolio/enterprise-quality-2026-10-29) · [Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local checks are recorded; hosted CI and cloud runtime remain separately unverified.
 
 A durable accounting-intake workflow that turns untrusted requests into **reviewable tool proposals**, waits for an independent approver, then writes a case into a local mock CRM. Built for an AI consultant portfolio: it demonstrates where model freedom ends and application controls begin.
 
@@ -74,7 +74,7 @@ The adapter is verified with an HTTP mock transport, **not live cloud inference*
 ```mermaid
 flowchart LR
   Request[Authenticated request] --> State[(SQLite run + checkpoint)]
-  State --> Planner[Fixture or Azure planner]
+  State --> Planner[Fixture, Ollama or Azure planner]
   Planner --> Validate[Allowlist + schema + scope validation]
   Validate --> Read[Customer + policy tools]
   Read --> Proposal[Immutable case proposal]
@@ -88,7 +88,7 @@ See [architecture](docs/architecture.md), [security](docs/security.md), [runbook
 
 ## Reproducibility and container
 
-`requirements.lock` records the exact environment used for verification. To reproduce it, install that file before `pip install -e . --no-deps`. CI tests Python 3.11 and 3.13 with the same lock. Docker uses a non-root Python 3.13 container and persists `/app/data` in a named volume:
+`requirements.lock` records the exact environment used for verification. To reproduce it, install that file before `pip install -e . --no-deps`. CI is configured for Python 3.11 and 3.13 with the same lock; hosted results must be inspected separately. Docker uses a non-root Python 3.13 container and persists `/app/data` in a named volume:
 
 ```bash
 docker compose up --build
