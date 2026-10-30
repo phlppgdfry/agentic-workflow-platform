@@ -1,0 +1,23 @@
+{
+  "wheel": "agentic_workflow_platform-0.1.0-py3-none-any.whl",
+  "sha256": "d7c2a2b9efd2053808f7d0dc9a5670cc11aeb961eeb446d1ff30c0c6cf521d9e",
+  "members": [
+    "agentic_workflow_platform-0.1.0.dist-info/licenses/LICENSE",
+    "workflow_platform/__init__.py",
+    "workflow_platform/api.py",
+    "workflow_platform/cli.py",
+    "workflow_platform/console.html",
+    "workflow_platform/engine.py",
+    "workflow_platform/integrations.py",
+    "workflow_platform/models.py",
+    "workflow_platform/ollama.py",
+    "workflow_platform/planners.py",
+    "workflow_platform/security.py",
+    "workflow_platform/store.py",
+    "agentic_workflow_platform-0.1.0.dist-info/METADATA",
+    "agentic_workflow_platform-0.1.0.dist-info/WHEEL",
+    "agentic_workflow_platform-0.1.0.dist-info/entry_points.txt",
+    "agentic_workflow_platform-0.1.0.dist-info/top_level.txt",
+    "agentic_workflow_platform-0.1.0.dist-info/RECORD"
+  ]
+}

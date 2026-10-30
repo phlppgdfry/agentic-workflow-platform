@@ -1,5 +1,7 @@
 # Agentic Workflow Platform
 
+[Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local checks are recorded; hosted CI and cloud runtime remain separately unverified.
+
 A durable accounting-intake workflow that turns untrusted requests into **reviewable tool proposals**, waits for an independent approver, then writes a case into a local mock CRM. Built for an AI consultant portfolio: it demonstrates where model freedom ends and application controls begin.
 
 ## Portfolio update — 29 October 2026

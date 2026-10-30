@@ -16,3 +16,10 @@ htmlcov/
 # Local package build outputs
 build/
 dist/
+
+# Local verification and package outputs
+.quality-venv/
+reports/
+build/
+dist/
+*.whl
