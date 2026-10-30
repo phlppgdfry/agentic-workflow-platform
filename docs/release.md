@@ -1,6 +1,6 @@
 # Local release evaluation — 30 October 2026
 
-This is a synthetic portfolio reference, ready for local technical inspection. It is not an Internet-facing production service. Hosted CI is **UNVERIFIED** until the branch is pushed with explicit authorization and its GitHub run actually succeeds. Existing dated evidence is preserved.
+This is a synthetic portfolio reference, ready for local technical inspection. It is not an Internet-facing production service. Hosted CI was **UNVERIFIED** at the October 30 evaluation. The [October 31 release report](https://github.com/phlppgdfry/ai-transformation-playbook/blob/portfolio/enterprise-quality-2026-10-29/portfolio/release-2026-10-31/REPORT.md) now records successful authorized branch runs and exact verification SHAs. Existing dated evidence is preserved.
 
 ## Independent clean installation check
 
