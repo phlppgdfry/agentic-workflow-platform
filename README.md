@@ -1,5 +1,11 @@
 # Agentic Workflow Platform
 
+<!-- showcase:start -->
+> **[▶ Replay the run](https://phlppgdfry.github.io/agentic-workflow-platform/)** — click through a genuine local qwen3:8b run: the model's plan, the validated tool calls, the wait for approval and the single mock CRM write.
+
+[![Replay the run: agentic-workflow-platform](site/demo.png)](https://phlppgdfry.github.io/agentic-workflow-platform/)
+<!-- showcase:end -->
+
 **Stack:** Python · FastAPI · Pydantic · SQLite · optional Ollama or Azure planner. [Portfolio v1.0 release scope](docs/releases/portfolio-v1.0.0.md).
 
 [Portfolio case study](https://github.com/phlppgdfry/ai-transformation-playbook/tree/portfolio/enterprise-quality-2026-10-29) · [Current release evaluation](docs/release.md) · [Capability evidence](evidence/release-2026-10-30/FEATURES.md). Local and hosted release checks passed; [exact commit and workflow evidence](https://github.com/phlppgdfry/ai-transformation-playbook/blob/portfolio/enterprise-quality-2026-10-29/portfolio/release-2026-10-31/REPORT.md). Cloud runtime remains unverified.

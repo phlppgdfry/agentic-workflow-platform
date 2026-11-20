@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agentic Workflow Platform — a model proposes tool calls, code checks them, a person approves</title>
+<meta name="description" content="A durable accounting-intake workflow: a local or Azure model plans bounded tool calls, the server validates scope and schemas, an independent reviewer approves, and an outbox writes once to a mock CRM. Replay a genuine local-model run.">
+<link rel="canonical" href="https://phlppgdfry.github.io/agentic-workflow-platform/">
+<meta property="og:type" content="website"><meta property="og:title" content="Agentic Workflow Platform — a model proposes tool calls, code checks them, a person approves"><meta property="og:description" content="A durable accounting-intake workflow: a local or Azure model plans bounded tool calls, the server validates scope and schemas, an independent reviewer approves, and an outbox writes once to a mock CRM. Replay a genuine local-model run.">
+<meta property="og:url" content="https://phlppgdfry.github.io/agentic-workflow-platform/"><meta property="og:image" content="https://phlppgdfry.github.io/agentic-workflow-platform/og.jpg"><meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0a0d12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23c084fc'/%3E%3C/svg%3E">
+<link rel="preload" href="assets/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/showcase.css">
+<style>:root{--brand:#c084fc;--accent-ink:#14051f}
+.aw-grid{display:grid;grid-template-columns:280px 1fr;gap:16px}
+.aw-grid>*{min-width:0}
+@media (max-width:800px){.aw-grid{grid-template-columns:1fr}}
+.aw-timeline{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--line2)}
+.aw-timeline li{position:relative;display:flex;flex-direction:column;gap:1px;padding:8px 10px;margin-bottom:4px;border-radius:8px;cursor:pointer}
+.aw-timeline li::before{content:"";position:absolute;left:-21px;top:14px;width:10px;height:10px;border-radius:50%;background:var(--line2)}
+.aw-timeline li:hover{background:var(--bg2)}
+.aw-timeline li[aria-current="true"]{background:var(--bg2);outline:1px solid var(--accent)}
+.aw-timeline li[aria-current="true"]::before{background:var(--accent)}
+.aw-detail{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px;min-height:340px}
+.aw-detail h3{margin:0 0 6px}
+.aw-detail p{color:var(--muted);margin:0 0 6px}
+.aw-pre{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12px;color:var(--muted);overflow:auto;max-height:300px;margin:8px 0 0}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <a class="brand" href="#"><i class="dot"></i><span>Agentic Workflow Platform</span></a>
+  <nav><a class="" href="#demo">Try it</a><a class="" href="#how">How it works</a><a class="hide-sm" href="#screens">Screens</a><a class="hide-sm" href="#run">Run it</a><a href="https://github.com/phlppgdfry/agentic-workflow-platform" aria-label="GitHub repository">GitHub</a><button class="theme" type="button" aria-label="Toggle light or dark theme"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></nav>
+</div></div>
+<main>
+<header class="hero"><div class="wrap grid">
+  <div>
+    <div class="kicker"><span>Python · FastAPI · tool calling · Ollama / Azure</span><span class="chip status">Portfolio v1.0</span></div>
+    <h1>The model may <em>plan</em>. Code and people decide what happens.</h1>
+    <p class="lede">An untrusted request ("prepare a review of this invoice") becomes a reviewable proposal. One bounded model call plans up to three tool calls; the server checks every tool name, argument and customer scope, runs plain functions with checkpoints, and stops. Only after a different person approves does an outbox write the case, exactly once.</p>
+    <div class="ctas"><a class="btn primary" href="#demo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Replay the run</a><a class="btn" href="https://github.com/phlppgdfry/agentic-workflow-platform"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg> Source on GitHub</a></div>
+    <div class="stack"><span class="chip">Python 3.13</span><span class="chip">FastAPI</span><span class="chip">Pydantic</span><span class="chip">SQLite checkpoints</span><span class="chip">Ollama · qwen3:8b</span><span class="chip">Azure OpenAI (optional)</span><span class="chip">pytest</span></div>
+  </div>
+  <div class="hero-visual"><div class="frame"><div class="bar"><i></i><i></i><i></i><b>127.0.0.1:8012/console · workflow inspector</b></div><img src="img/evidence-screenshots-desktop.webp" alt="Agentic Workflow Platform" width="1440" height="1000"></div><div class="caption">The workflow inspector from the repository, with a run waiting for approval.</div></div>
+</div></header>
+<section id="why"><div class="wrap">
+  <p class="eyebrow">Why it exists</p><h2>"Agentic" too often means the model holds the keys.</h2>
+  <div class="problem">
+    <div class="card before"><div class="label">Without it</div><p>A model is given tools that write to the CRM and allowed to loop until it is done. A prompt injection, a wrong customer ID or a retry after a crash can create the wrong case, or the same case twice, before anyone looks.</p></div>
+    <div class="card after"><div class="label">With it</div><p>Tools are three explicit functions with strict schemas and customer-scope checks, within a three-step budget. Progress is checkpointed with leases and fencing, the proposal is immutable, the requester cannot approve their own run, and delivery goes through an idempotent outbox.</p></div>
+  </div>
+</div></section>
+<section id="demo"><div class="wrap">
+  <p class="eyebrow">Try it · runs in your browser</p><h2>Replay a genuine local-model run</h2>
+  <p class="sub">Recorded in <code>evidence/local-model-run.json</code>: qwen3:8b running on a laptop through Ollama plans the tool calls, then a scripted, independent reviewer approves. Click through the eight events.</p>
+  <div class="demo"><div class="aw-grid">
+  <ol class="aw-timeline" id="aw-tl"></ol>
+  <div class="aw-detail" id="aw-detail"></div>
+</div>
+</div>
+  <p class="note">Synthetic customer records and a local mock CRM. One run shows the path works; it is not a measure of model accuracy. The fixture planner, used by default and in tests, makes no model call.</p>
+</div></section>
+<section id="how"><div class="wrap">
+  <p class="eyebrow">How it works</p><h2>Durable by design</h2>
+  
+  <div class="cards"><div class="card"><div class="ic">01</div><h3>Bounded planning</h3><p>One model call returns a plan of at most three steps; unknown tools, wrong argument shapes or out-of-scope customers are rejected before execution.</p></div><div class="card"><div class="ic">02</div><h3>Checkpoints and leases</h3><p>Every step is saved in SQLite with atomic leases and fencing, so a crashed or stale worker cannot overwrite newer progress.</p></div><div class="card"><div class="ic">03</div><h3>Approval and outbox</h3><p>The run waits with an immutable proposal; a different identity approves; an outbox delivers idempotently to the mock CRM.</p></div><div class="card"><div class="ic">04</div><h3>Retries that end</h3><p>Persisted exponential backoff, bounded retries and terminal failure states, with structured audit events.</p></div></div>
+  <h3 style="margin:34px 0 14px">The flow, step by step</h3><div class="flow" role="list"><div class="node"><div class="n">01</div><b>Request</b><small>idempotent POST /runs</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">02</div><b>Plan</b><small>fixture, Ollama or Azure: one call</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node hl"><div class="n">03</div><b>Validate + run tools</b><small>schemas, scope, budget, checkpoints</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">04</div><b>Approval</b><small>independent reviewer, reason</small></div><div class="arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div><div class="node"><div class="n">05</div><b>Outbox</b><small>one mock CRM case</small></div></div>
+</div></section>
+<section id="screens"><div class="wrap">
+  <p class="eyebrow">Screens</p><h2>What it looks like</h2>
+  
+  <div class="gallery"><figure data-zoom="On a phone — The inspector at 390 pixels."><div class="frame"><img src="img/evidence-screenshots-mobile.webp" alt="On a phone" width="390" height="844" loading="lazy" decoding="async"></div><figcaption><b>On a phone</b> The inspector at 390 pixels.</figcaption></figure></div>
+</div></section>
+<section id="evidence"><div class="wrap">
+  <p class="eyebrow">Evidence</p><h2>What is real, and what is not</h2>
+  
+  <div class="metrics"><div class="metric"><div class="v">47</div><div class="l">automated tests</div><div class="s">leases, retries, roles, tool validation</div></div><div class="metric"><div class="v">9.3 s</div><div class="l">local planning call</div><div class="s">qwen3:8b, 366 in / 111 out tokens</div></div><div class="metric"><div class="v">0</div><div class="l">external writes</div><div class="s">mock CRM tables only</div></div></div>
+  <div class="honest" style="margin-top:18px">
+      <div class="card real"><h3><span class="pill ok">REAL</span> Built and verified</h3><ul><li>FastAPI workflow engine with checkpoints, leases, retries, approval and outbox, with tests and CI</li><li>A genuine local tool-calling run with qwen3:8b through Ollama</li><li>OpenAPI contract and a browser workflow inspector</li></ul></div>
+      <div class="card sim"><h3><span class="pill warn">SIMULATED</span> Mocked or not built yet</h3><ul><li>Specialist steps are functions, not autonomous agents</li><li>Mock CRM, synthetic customers and a scripted reviewer</li><li>Not deployed and not validated against a live Azure resource</li></ul></div></div>
+</div></section>
+<section id="run"><div class="wrap two">
+  <div><p class="eyebrow">Run it yourself</p><h2>Run it locally</h2>
+  
+  <div class="code"><button class="copy" type="button">Copy</button><pre><code>git clone https://github.com/phlppgdfry/agentic-workflow-platform
+cd agentic-workflow-platform
+python3 -m venv .venv &amp;&amp; . .venv/bin/activate
+python -m pip install -e &#x27;.[dev]&#x27;
+python -m workflow_platform.cli      # waiting_approval, then completed
+python -m pytest -q</code></pre></div></div>
+  <div><p class="eyebrow">Go deeper</p><h2>Read the source</h2>
+  <div class="links"><a href="https://github.com/phlppgdfry/agentic-workflow-platform"><span>Repository</span><span>github</span></a><a href="https://github.com/phlppgdfry/agentic-workflow-platform/blob/HEAD/docs/local-inference.md"><span>Local inference notes</span><span>docs</span></a><a href="https://github.com/phlppgdfry/agentic-workflow-platform/blob/HEAD/docs/portfolio-integration.md"><span>Integration and limitations</span><span>docs</span></a><a href="https://github.com/phlppgdfry/agentic-workflow-platform/blob/HEAD/docs/openapi.json"><span>OpenAPI</span><span>json</span></a><a href="https://github.com/phlppgdfry/agentic-workflow-platform/blob/HEAD/evidence/local-model-run.json"><span>Recorded local-model run</span><span>json</span></a><a href="https://phlppgdfry.github.io/ai-transformation-playbook/"><span>AI Transformation Playbook (the case)</span><span>live</span></a></div></div>
+</div></section></main>
+<footer><div class="wrap">
+  <span>Agentic Workflow Platform · A portfolio project by Philippe Godfroy</span>
+  <span><a href="https://www.philippegodfroy.com/work">More projects</a> · <a href="https://github.com/phlppgdfry/agentic-workflow-platform">Source</a></span>
+</div></footer>
+<script src="assets/showcase.js"></script>
+
+<script src="assets/demo.js" type="module"></script>
+</body></html>
